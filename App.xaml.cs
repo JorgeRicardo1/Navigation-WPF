@@ -1,5 +1,6 @@
 ﻿using Navigation_WPF.Exceptions;
 using Navigation_WPF.Models;
+using Navigation_WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,28 +18,11 @@ namespace Navigation_WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Hotel hotel = new Hotel("Hotel jorge jeje");
-
-            try
+            MainWindow = new MainWindow()
             {
-                hotel.MakeReservation(new Reservation(
-                new RoomID(1, 3),
-                "Jorge",
-                new DateTime(2000, 1, 3),
-                new DateTime(2000, 1, 4)));
-
-                hotel.MakeReservation(new Reservation(
-                    new RoomID(1, 3),
-                    "Jorge",
-                    new DateTime(2000, 1, 3),
-                    new DateTime(2000, 1, 4)));
-            }
-            catch (ReservationConflictException ex)
-            {
-
-            }
-
-            IEnumerable<Reservation> reservations = hotel.GetReservationsForUser("Jorge");
+                DataContext = new MainViewModel()
+            };
+            MainWindow.Show();
             base.OnStartup(e);
         }
     }

@@ -36,7 +36,7 @@
             <TextBox
                 Grid.Row="1"
                 Margin="0,5,0,0"
-                Text="" />
+                Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -59,7 +59,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Margin="0,5,0,0"
-                Text="" />
+                Text="{Binding FloorNumber, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="1"
@@ -70,7 +70,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="5,5,0,0"
-                Text="" />
+                Text="{Binding RoomNumber, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <Grid Grid.Row="3">
@@ -93,7 +93,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Margin="0,5,0,0"
-                SelectedDate="" />
+                SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="1"
@@ -104,15 +104,21 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="5,5,0,0"
-                SelectedDate="" />
+                SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <StackPanel
             Grid.Row="4"
             Margin="0,5,0,0"
             Orientation="Horizontal">
-            <Button Content="Submit" Style="{StaticResource addButton}" />
-            <Button Margin="5,0,0,0" Content="Cancel" />
+            <Button
+                Command="{Binding SubmitCommand}"
+                Content="Submit"
+                Style="{StaticResource addButton}" />
+            <Button
+                Margin="5,0,0,0"
+                Command="{Binding CancelCommand}"
+                Content="Cancel" />
         </StackPanel>
     </Grid>
 </UserControl>
