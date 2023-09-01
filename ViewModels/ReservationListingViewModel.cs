@@ -1,4 +1,5 @@
-﻿using Navigation_WPF.Models;
+﻿using Navigation_WPF.Commands;
+using Navigation_WPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ namespace Navigation_WPF.ViewModels
         public ReservationListingViewModel()
         {
             _reservations = new ObservableCollection<ReservationViewModel>();
+            MakeReservationCommand = new NavigateCommand();
 
             _reservations.Add(new ReservationViewModel(
                 new Reservation(new RoomID(1, 2), "JOrge", DateTime.Now, DateTime.Now)

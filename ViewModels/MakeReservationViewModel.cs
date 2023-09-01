@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Navigation_WPF.Commands;
+using Navigation_WPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +9,10 @@ using System.Windows.Input;
 
 namespace Navigation_WPF.ViewModels
 {
-    class MakeReservationViewModel : ViewModelBase
+    public class MakeReservationViewModel : ViewModelBase
     {
         private string _username;
-        public string Username
+        public string UserName
         {
             get
             {
@@ -19,7 +21,7 @@ namespace Navigation_WPF.ViewModels
             set
             {
                 _username = value;
-                OnPropertyChanged(nameof(Username));
+                OnPropertyChanged(nameof(UserName));
             }
         }
 
@@ -33,7 +35,7 @@ namespace Navigation_WPF.ViewModels
             set
             {
                 _floorNumber = value;
-                OnPropertyChanged(nameof(_floorNumber));
+                OnPropertyChanged(nameof(FloorNumber));
             }
         }
 
@@ -47,11 +49,11 @@ namespace Navigation_WPF.ViewModels
             set
             {
                 _roomNumber = value;
-                OnPropertyChanged(nameof(_roomNumber));
+                OnPropertyChanged(nameof(RoomNumber));
             }
         }
 
-        private DateTime _startDate;
+        private DateTime _startDate = new DateTime(2023, 1, 1);
         public DateTime StartDate
         {
             get
@@ -61,11 +63,11 @@ namespace Navigation_WPF.ViewModels
             set
             {
                 _startDate = value;
-                OnPropertyChanged(nameof(_startDate));
+                OnPropertyChanged(nameof(StartDate));
             }
         }
 
-        private DateTime _endDate;
+        private DateTime _endDate = new DateTime(2023, 8, 1);
         public DateTime EndDate
         {
             get
@@ -75,11 +77,17 @@ namespace Navigation_WPF.ViewModels
             set
             {
                 _endDate = value;
-                OnPropertyChanged(nameof(_endDate));
+                OnPropertyChanged(nameof(EndDate));
             }
         }
 
         public ICommand SubmitCommand { get;}
         public ICommand CancelCommand { get; }
+
+        public MakeReservationViewModel(Hotel hotel)
+        {
+            SubmitCommand = new MakeReservationCommand(this, hotel);
+            CancelCommand = new CancelMakeReservationCommand();
+        }
     }
 }
