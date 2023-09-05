@@ -1,5 +1,7 @@
 ﻿using Navigation_WPF.Commands;
 using Navigation_WPF.Models;
+using Navigation_WPF.Services;
+using Navigation_WPF.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,10 +86,10 @@ namespace Navigation_WPF.ViewModels
         public ICommand SubmitCommand { get;}
         public ICommand CancelCommand { get; }
 
-        public MakeReservationViewModel(Hotel hotel)
+        public MakeReservationViewModel(Hotel hotel, NavigationServices reservationViewNavigationServices)
         {
-            SubmitCommand = new MakeReservationCommand(this, hotel);
-            CancelCommand = new CancelMakeReservationCommand();
+            SubmitCommand = new MakeReservationCommand(this, hotel, reservationViewNavigationServices);
+            CancelCommand = new NavigateCommand(reservationViewNavigationServices);
         }
     }
 }

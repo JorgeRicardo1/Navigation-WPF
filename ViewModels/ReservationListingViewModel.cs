@@ -1,5 +1,7 @@
 ﻿using Navigation_WPF.Commands;
 using Navigation_WPF.Models;
+using Navigation_WPF.Services;
+using Navigation_WPF.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,26 +12,33 @@ using System.Windows.Input;
 
 namespace Navigation_WPF.ViewModels
 {
-    class ReservationListingViewModel : ViewModelBase
+    public class ReservationListingViewModel : ViewModelBase
     {
         private readonly ObservableCollection<ReservationViewModel> _reservations;
+        private readonly Hotel _hotel;
+
         public IEnumerable<ReservationViewModel> Reservations => _reservations;
         public ICommand MakeReservationCommand { get;}
 
-        public ReservationListingViewModel()
+        public ReservationListingViewModel(Hotel hotel, NavigationServices MakeReservationNavigationServices)
         {
             _reservations = new ObservableCollection<ReservationViewModel>();
-            MakeReservationCommand = new NavigateCommand();
+            _hotel = hotel;
 
-            _reservations.Add(new ReservationViewModel(
-                new Reservation(new RoomID(1, 2), "JOrge", DateTime.Now, DateTime.Now)
-                ));
-            _reservations.Add(new ReservationViewModel(
-                new Reservation(new RoomID(1, 3), "Pedro", DateTime.Now, DateTime.Now)
-                ));
-            _reservations.Add(new ReservationViewModel(
-                new Reservation(new RoomID(1, 4), "Carlos", DateTime.Now, DateTime.Now)
-                ));
+            MakeReservationCommand = new NavigateCommand(MakeReservationNavigationServices);
+
+            UpdateReservations();
+        }
+
+        private void UpdateReservations()
+        {
+            _reservations.Clear();
+
+            foreach (Reservation reservation in _hotel.GetAllReservations())
+            {
+                ReservationViewModel reservationViewModel = new ReservationViewModel(reservation);
+                _reservations.Add(reservationViewModel);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Navigation_WPF.ViewModels
 {
-    class ReservationViewModel : ViewModelBase
+    public class ReservationViewModel : ViewModelBase
     {
         private Reservation _reservation;
 

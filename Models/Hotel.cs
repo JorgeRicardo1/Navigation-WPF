@@ -23,7 +23,7 @@ namespace Navigation_WPF.Models
         /// Get all reservations .
         /// </summary>
         /// <returns>The reservations.</returns>
-        public IEnumerable<Reservation> GetReservationsForUser(string username)
+        public IEnumerable<Reservation> GetAllReservations()
         {
             return _reservationBook.GetAllReservations();
         }
